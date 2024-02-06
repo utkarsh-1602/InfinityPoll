@@ -1,2 +1,2 @@
-# Real-time Polling Application with Chat Feature
+# InfinityPoll - Realtime Polling Chat Application 
 
