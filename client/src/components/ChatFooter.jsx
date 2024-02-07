@@ -1,18 +1,33 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-const ChatFooter = ({socket}) => {
+const ChatFooter = ({socket, auth}) => {
   const [message, setMessage] = useState('');
 
+  if (!socket) {
+    console.error('Socket is not initialized');
+  }
+
+  console.log("footer: ", socket);
+
   const handleSendMessage = (e) => {
+    console.log("hey I'm here")
     e.preventDefault();
-    if (message.trim() && localStorage.getItem('userName')) {
-      socket.emit('message', {
-        text: message,
-        name: localStorage.getItem('userName'),
-        id: `${socket.id}${Math.random()}`,
-        socketID: socket.id,
-      });
+    if (message.trim()) {
+      console.log("its working")
+      try {
+        socket.emit('message', {
+            text: message,
+            name: auth.user.username,
+            id: `${socket.id}${Math.random()}`,
+            socketID: socket.id,
+        });
+    } catch (error) {
+        console.error("Error emitting message:", error);
     }
+    
+    }
+    console.log("its not working  ")
     setMessage('');
   };
 
@@ -31,5 +46,8 @@ const ChatFooter = ({socket}) => {
     </div>
   );
 };
-
-export default ChatFooter;
+export default connect(
+  store => ({
+    auth: store.auth,
+  }),
+)(ChatFooter);

@@ -28,7 +28,7 @@ try {
 
       //Listens and logs the message to the console
       socket.on('message', (data) => {
-        socketIO.emit('messageResponse', data);
+        console.log(data);
       });
 
     socket.on('disconnect', () => {
