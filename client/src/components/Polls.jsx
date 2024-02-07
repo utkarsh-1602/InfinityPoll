@@ -7,6 +7,7 @@ class Polls extends Component {
   constructor(props) {
     super(props);
     this.handleSelect = this.handleSelect.bind(this);
+    // In React, the bind.this method is often used to ensure that when an event handler function is passed down as a prop to other components or used in asynchronous contexts, the this keyword inside it still refers to the correct component instance.
   }
   componentDidMount() {
     const { getPolls } = this.props;

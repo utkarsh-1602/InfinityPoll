@@ -6,12 +6,19 @@ import { authUser, logout } from '../store/actions';
 class Auth extends Component {
   constructor(props) {
     super(props);
+    // By calling super(props), you're essentially calling the constructor of the parent class and passing the props object to it. This ensures that the parent class is properly initialized before initializing the subclass.
+
     this.state = {
       username: '',
       password: '',
     };
 
+    // The component's state (this.state) is used to store data that may change over time and affect the component's rendering.
+    // In this case, the state holds the values of username and password, which are expected to be entered by the user in input fields.
+
+
     this.handleChange = this.handleChange.bind(this);
+    // This part of the line binds the handleChange method to the current component instance. The bind() method creates a new function that, when called, has this set to the value passed as an argument (in this case, this, which refers to the component instance).
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
