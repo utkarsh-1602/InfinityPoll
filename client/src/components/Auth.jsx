@@ -73,3 +73,7 @@ class Auth extends Component {
 }
 
 export default connect(() => ({}), { authUser, logout })(Auth);
+// In summary, while the Auth component doesn't directly receive props related to Redux store state, it indirectly receives action creators (authUser and logout) as props from the connect function.
+//  the provided Auth.jsx component, props are being received indirectly through the connect function provided by react-redux.
+// connect() is a higher-order function call to the connect function provided by react-redux.
+// connect is used to connect a React component to the Redux store. It's a function that returns another function, which then wraps around your component

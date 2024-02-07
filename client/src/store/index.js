@@ -16,6 +16,9 @@ const DEFAULT_STATE = {
 
 // Define composeEnhancers for Redux DevTools extension
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// composeEnhancers is a variable that holds the compose function from Redux DevTools extension if available, otherwise, it holds the compose function from Redux.
+// This allows Redux DevTools extension to be used if it's installed in the browser. It enhances the store with debugging capabilities and time-traveling features.
+
 
 // Create Redux store with middleware and DevTools extension
 export const store = createStore(
