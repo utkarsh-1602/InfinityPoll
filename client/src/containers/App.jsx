@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import decode from 'jwt-decode';
 
 import { store } from '../store';
@@ -8,6 +8,13 @@ import { setToken, setCurrentUser, addError } from '../store/actions';
 
 import NavBar from './NavBar';
 import RouteViews from './RouteViews';
+import socketIO from 'socket.io-client';
+import Home from '../components/HomeChat';
+import ChatPage from '../components/ChatPage';
+
+const socket = socketIO.connect('http://localhost:4000');
+console.log("Socket: ", socket);
+
 
 // The code checks if there is a JWT token stored in the local storage
 if (localStorage.jwtToken) { 
@@ -31,6 +38,8 @@ const App = () => (
       <Fragment>
         <NavBar />
         <RouteViews />
+        {/* <Route path="/" element={<Home socket={socket} />}></Route> */}
+          <Route path="/chat" element={<ChatPage socket={socket} />}></Route>
       </Fragment>
     </Router>
   </Provider>

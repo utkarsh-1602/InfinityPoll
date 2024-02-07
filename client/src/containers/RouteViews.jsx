@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import Chat from '../components/Chat'
 import { getCurrentPoll } from '../store/actions';
 import HomePage from '../pages/HomePage';
 import AuthPage from '../pages/AuthPage';
 import PollPage from '../pages/PollPage';
 import CreatePollPage from '../pages/CreatePollPage';
 import TestPage from '../pages/TestPage';
+import ChatPage from '../components/ChatPage';
 
 const RouteViews = ({ getCurrentPoll, auth }) => (
   <main className="container">
@@ -43,7 +43,7 @@ const RouteViews = ({ getCurrentPoll, auth }) => (
         )}
       />
       <Route exact path="/test" render={() => <TestPage />} />
-      <Route exact path="/chat" component={Chat} />
+      <Route exact path="/chat" render={() => <ChatPage isAuthenticated={auth.isAuthenticated} />}/>
     </Switch>
   </main>
 );
