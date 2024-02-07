@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ChatBar from '../components/ChatBar';
 import ChatBody from '../components/ChatBody';
 import ChatFooter from '../components/ChatFooter';
@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import socketIO from 'socket.io-client';
 
 
-const socket = socketIO.connect('http://localhost:4000');
+export const socket = socketIO.connect('http://localhost:4000');
 console.log("Socket: ", socket);
 
 // Event listener for 'messageResponse' event from the server
@@ -17,17 +17,28 @@ socket.on('messageResponse', (data) => {
 
 const ChatPage = ({isAuthenticated }) => {
 
+    const [messages, setMessages] = useState([]);
+    const [typingStatus, setTypingStatus] = useState('');
+
+
     if (!isAuthenticated) return <Redirect to="/login" />;
     console.log("CHATPAGE SOCKET===> ", socket)
 
+    useEffect(() => {
+        socket.on('messageResponse', (data) => setMessages([...messages, data]));
+        socket.on('typingResponse', (data) => setTypingStatus(data));
+      }, [socket, messages]);
+    
+
   return (
     <div className="chat">
-      <ChatBar />
-      <div className="chat__main">
-        <ChatBody />
-        <ChatFooter socket={socket}/>
-      </div>
+    <ChatBar socket={socket} />
+    <div className="chat__main">
+      <ChatBody messages={messages} typingStatus={typingStatus} />
+      <ChatFooter socket={socket} />
     </div>
+  </div>
+
   );
 };
 export default ChatPage;  

@@ -28,8 +28,10 @@ class Auth extends Component {
 
   handleSubmit(e) {
     const { username, password } = this.state;
-    const { authType } = this.props;
+    const { authType, socket } = this.props;
     e.preventDefault();
+    //sends the username and socket ID to the Node.js server
+    socket.emit('newUser', { username, socketID: socket.id });
     this.props.authUser(authType || 'login', { username, password });
   }
 

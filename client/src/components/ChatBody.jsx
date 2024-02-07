@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-const ChatBody = () => {
+const ChatBody = ({messages, auth, typingStatus}) => {
   const history = useHistory();
 
   const handleLeaveChat = () => {
@@ -21,28 +22,37 @@ const ChatBody = () => {
 
       {/*This shows messages sent from you*/}
       <div className="message__container">
-        <div className="message__chats">
-          <p className="sender__name">You</p>
-          <div className="message__sender">
-            <p>Hello there</p>
-          </div>
-        </div>
+          {messages.map((message) =>
+          message.name === auth.user.username ? (
+            <div className="message__chats" key={message.id}>
+              <p className="sender__name">You</p>
+              <div className="message__sender">
+                <p>{message.text}</p>
+              </div>
+            </div>
+          ) : (
+            <div className="message__chats" key={message.id}>
+              <p>{message.name}</p>
+              <div className="message__recipient">
+                <p>{message.text}</p>
+              </div>
+            </div>
+          )
+        )}
 
-        {/*This shows messages received by you*/}
-        <div className="message__chats">
-          <p>Other</p>
-          <div className="message__recipient">
-            <p>Hey, I'm good, you?</p>
-          </div>
-        </div>
 
         {/*This is triggered when a user is typing*/}
         <div className="message__status">
-        </div>
+        <p>{typingStatus}</p>
+      </div>
       </div>
       </div>
 
   );
 };
 
-export default ChatBody;
+export default connect(
+  store => ({
+    auth: store.auth,
+  }),
+)(ChatBody); //The brackets around Navbar in the connect function indicate that Navbar is the component being connected to the Redux store.

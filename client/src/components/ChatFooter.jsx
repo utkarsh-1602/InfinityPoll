@@ -10,6 +10,11 @@ const ChatFooter = ({socket, auth}) => {
 
   console.log("footer: ", socket);
 
+  const handleTyping = () =>
+  socket.emit('typing', `${auth.user.username} is typing`);
+
+
+
   const handleSendMessage = (e) => {
     console.log("hey I'm here")
     e.preventDefault();
@@ -40,6 +45,7 @@ const ChatFooter = ({socket, auth}) => {
           className="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleTyping}
         />
         <button className="sendBtn">SEND</button>
       </form>

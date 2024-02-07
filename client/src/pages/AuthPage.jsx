@@ -1,16 +1,18 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
+import { socket } from '../components/ChatPage';
 import Auth from '../components/Auth';
 import ErrorMessage from '../components/ErrorMessage';
 
 const AuthPage = ({ authType, isAuthenticated }) => {
   if (isAuthenticated) return <Redirect to="/" />;
 
+  console.log("Auth Socket ============> ", socket)
+
   return (
     <div>
       <ErrorMessage />
-      <Auth authType={authType} />
+      <Auth authType={authType} socket={socket}/>
       {/* 
           The Auth component is a child component of AuthPage.
           Even though authType is not directly used inside the Auth component, it's passed down as a prop from its parent (AuthPage).
