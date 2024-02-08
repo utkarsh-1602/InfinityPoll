@@ -43,7 +43,7 @@ class CreatePoll extends Component {
         <input
           className="form-input"
           type="text"
-          value={options}
+          value={option}
           key={i}
           onChange={e => this.handleAnswer(e, i)}
         />
