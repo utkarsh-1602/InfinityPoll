@@ -19,6 +19,7 @@ exports.register = async (req, res, next) => {
     const user = await db.User.create(req.body);
     const { id, username } = user;
     const token = jwt.sign({ id, username }, process.env.SECRET);
+
     // Finally, you're using the id and username obtained from the user object to create a JWT. This token will typically be sent back to the client as part of the authentication process, allowing the client to include it in subsequent requests for authentication and authorization purposes
 
     return res.status(201).json({

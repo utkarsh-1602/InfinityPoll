@@ -23,7 +23,7 @@ exports.usersPolls = async (req, res, next) => {
     const user = await db.User.findById(id).populate('polls');
     // This line queries the database to find the user with the specified id and populates the polls field of the user object.
     // populate() function is used to populate reference fields in a document of a certain collection with documents from another collection
-    // console.log("<usersPolls> User: ", user);
+    console.log("<usersPolls> User: ", user);
 
     return res.status(200).json(user.polls);
   } catch (err) {

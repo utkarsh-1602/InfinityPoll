@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 module.exports = (req, res, next) => {
   if (req.headers['authorization']) {
     const token = req.headers['authorization'].split(' ')[1];
     
     console.log('<JWT Token>: ', token)
+    console.log('<secret Token>: ', process.env.SECRET)
 
 
     // reference: https://www.npmjs.com/package//jsonwebtoken
