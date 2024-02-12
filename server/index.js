@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const http = require('http'); // Import the http module
+const http = require('https'); // Import the http module
 const routes = require('./routes');
 const handle = require('./handlers');
 
@@ -42,9 +42,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = http.createServer(app);
 let users = [];
 
+
+// Add the CORS header before the server starts listening for requests
+server.prependListener("request", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+});
+
+
 const socketIO = require('socket.io')(server, {
   cors: {
-      origin: `https://infinity-poll-client.vercel.app`
+      origin: `https://infinity-poll-client.vercel.app`,
+      methods: ["GET", "POST"]
   }
 });
 
@@ -90,3 +98,5 @@ app.use((req, res, next) => {
 app.use(handle.error);
 
 server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
+// Reference: https://stackoverflow.com/questions/59749021/socket-io-error-access-to-xmlhttprequest-has-been-blocked-by-cors-policy

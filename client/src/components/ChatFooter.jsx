@@ -11,10 +11,7 @@ const ChatFooter = ({socket, auth}) => {
   console.log("footer: ", socket);
 
   const handleTyping = () =>
-  socket.emit('typing', `${auth.user.username} is typing`);
-
-
-
+  socket.emit('typing', `Utkarsh is typing`);
   const handleSendMessage = (e) => {
     console.log("hey I'm here")
     e.preventDefault();
