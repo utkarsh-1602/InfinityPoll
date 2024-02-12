@@ -42,13 +42,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = http.createServer(app);
 let users = [];
 
-
-// Add the CORS header before the server starts listening for requests
-server.prependListener("request", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-});
-
-
 const socketIO = require('socket.io')(server, {
   cors: {
       origin: `https://infinity-poll-client.vercel.app`,
