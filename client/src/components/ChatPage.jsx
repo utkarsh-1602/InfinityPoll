@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import socketIO from 'socket.io-client';
 
 
-export const socket = socketIO.connect('http://localhost:4000');
+export const socket = socketIO.connect('https://infinity-poll-server.vercel.app');
 console.log("Socket: ", socket);
 
 // Event listener for 'messageResponse' event from the server

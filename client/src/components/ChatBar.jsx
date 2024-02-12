@@ -10,7 +10,7 @@ const ChatBar = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await Axios.get('http://localhost:4000/api/auth');
+        const response = await Axios.get('https://infinity-poll-server.vercel.app/api/auth');
         console.log("response: " , response);
         setUsers(response.data);
         setLoading(false);

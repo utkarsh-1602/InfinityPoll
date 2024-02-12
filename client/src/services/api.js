@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const host = 'http://localhost:4000/api';
+const host = 'https://infinity-poll-server.vercel.app/api';
 // This base URL typically specifies the root of the server's API routes and is used as a prefix when making requests to the server from the client. It allows for easy management and reuse of the server's endpoint across different parts of the client application.
 
 // this code is defining a function called setToken that takes a token as input
