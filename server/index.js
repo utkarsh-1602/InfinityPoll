@@ -45,8 +45,11 @@ let users = [];
 const socketIO = require('socket.io')(server, {
   cors: {
       origin: `https://infinity-poll-client.vercel.app`,
-      methods: ["GET", "POST"]
-  }
+      methods: ["GET", "POST"],
+      transports: ['websocket', 'polling'],
+      credentials: true,
+  },
+  allowEIO3: true
 });
 
 try {
