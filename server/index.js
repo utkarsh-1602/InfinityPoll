@@ -47,7 +47,6 @@ const socketIO = require('socket.io')(server, {
       origin: `https://infinity-poll-client.vercel.app`,
       methods: ["GET", "POST"],
       transports: ['websocket', 'polling'],
-      credentials: true,
   },
   allowEIO3: true
 });
