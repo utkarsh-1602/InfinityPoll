@@ -9,7 +9,32 @@ const handle = require('./handlers');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-app.use(cors());
+
+const whitelist = [
+  '*' // Allow requests from all origins, you can specify specific origins here if needed
+];
+
+app.use((req, res, next) => {
+  const origin = req.get('Origin');
+  const isWhitelisted = whitelist.includes('*') || whitelist.includes(origin);
+  if (isWhitelisted) {
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+  }
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+// Middleware to parse incoming JSON data
+app.use(express.json());
+app.use(cors())
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -19,7 +44,7 @@ let users = [];
 
 const socketIO = require('socket.io')(server, {
   cors: {
-      origin: `http://localhost:3000`
+      origin: `https://infinity-poll-client.vercel.app`
   }
 });
 
